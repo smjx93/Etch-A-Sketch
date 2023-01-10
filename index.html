@@ -27,6 +27,29 @@ for (let i = 0; i < 16; i++) {
   // Append the square to the container
   container.appendChild(square);
 }
+
+var squares = document.getElementsByClassName("square");
+      var passes = 0;
+      for(let i = 0; i < squares.length; i++) {
+          squares[i].addEventListener("mouseover", function() {
+              if(passes < 10) {
+                // Add another 10% of black
+                this.style.backgroundColor = "rgb(0, 0, 0)";
+                let currentOpacity = this.style.opacity;
+                this.style.opacity = (currentOpacity ? parseFloat(currentOpacity) : 1) + 0.1;
+                passes++;
+              } else {
+                // Reset passes and set random color
+                passes = 0;
+                this.style.backgroundColor = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+              }
+          });
+      }
+      
+      function randomColor() {
+          return Math.floor(Math.random() * 256);
+      }
+
 }
 ;
 

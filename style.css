@@ -1,11 +1,14 @@
-/* Define the container div */
+/* Define the container div 
+1fr unit for all columns and rows*/
+
+
 .container {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr);
 
-    width: 320px;
-    height: 320px;
+    width: 450px;
+    height: 450px;
     margin: 0 auto;
     background-color: white;
   }
