@@ -17,39 +17,47 @@
     </form>
    
     <script>
+
+    // The script that handles the drawing, will update the background color to the chosen 
+    // color by the user, using the colorPicker.value property instead of the random 
+    // generated color.
+
     // Get the color picker input
     let colorPicker = document.getElementById("color-picker");
-    // Get the container div
-    let container = document.getElementById("grid-container");
+   // Get the container div
+   let container = document.getElementById("grid-container");
 
-    // Create a loop to create the grid squares
-    for (let i = 0; i < 16; i++) {
-        for (let j = 0; j < 16; j++) {
-            // Create a new div
-            let square = document.createElement("div");
-            // Add the "square" class to the div
-            square.classList.add("square");
-            // Append the square to the container
-            container.appendChild(square);
-        }
+// Create a loop to create the grid squares
+for (let i = 0; i < 16; i++) {
+    for (let j = 0; j < 16; j++) {
+        // Create a new div
+        let square = document.createElement("div");
+        // Add the "square" class to the div
+        square.classList.add("square");
+        // Append the square to the container
+        container.appendChild(square);
     }
+}
 
-    var squares = document.getElementsByClassName("square");
-    var passes = 0;
-    for (let i = 0; i < squares.length; i++) {
-        squares[i].addEventListener("mouseover", function () {
+var squares = document.getElementsByClassName("square");
+var passes = 0;
+for (let i = 0; i < squares.length; i++) {
+    squares[i].addEventListener("mouseover", function (event) {
+        // Check if the left mouse button is clicked
+        if (event.buttons === 1) {
             if (passes < 10) {
-                // Add another 10% of the selected color
-                this.style.backgroundColor = colorPicker.value;
-                let currentOpacity = this.style.opacity;
-                this.style.opacity = (currentOpacity ? parseFloat(currentOpacity) : 1) + 0.1;
-                passes++;
+            // Add another 10% of the selected color
+            this.style.backgroundColor = colorPicker.value;
+            let currentOpacity = this.style.opacity;
+            this.style.opacity = (currentOpacity ? parseFloat(currentOpacity) : 1) + 0.1;
+            passes++;
             } else {
                 // Reset passes
                 passes = 0;
             }
-        });
-    }
+        }
+    });
+}
     </script>
 </body>
 
