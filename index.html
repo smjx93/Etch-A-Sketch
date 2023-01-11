@@ -4,15 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    
-
-    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" type="text/css" href="style.css"></link>
+        <title>Etch-A-Sketch</title>
 </head>
 <body>
     <h1>Etch-A-Sketch</h1>
+    <div id="grid-container" class="container"></div>
 
+    <form>
+        <label for="color-picker">Choose a color:</label>
+        <input type="color" id="color-picker" name="color-picker">
+    </form>
+   
+    <script>
+    // Get the color picker input
+    let colorPicker = document.getElementById("color-picker");
+    // Get the container div
+    let container = document.getElementById("grid-container");
 
-<script> src="script.js" </script>
+    // Create a loop to create the grid squares
+    for (let i = 0; i < 16; i++) {
+        for (let j = 0; j < 16; j++) {
+            // Create a new div
+            let square = document.createElement("div");
+            // Add the "square" class to the div
+            square.classList.add("square");
+            // Append the square to the container
+            container.appendChild(square);
+        }
+    }
+
+    var squares = document.getElementsByClassName("square");
+    var passes = 0;
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].addEventListener("mouseover", function () {
+            if (passes < 10) {
+                // Add another 10% of the selected color
+                this.style.backgroundColor = colorPicker.value;
+                let currentOpacity = this.style.opacity;
+                this.style.opacity = (currentOpacity ? parseFloat(currentOpacity) : 1) + 0.1;
+                passes++;
+            } else {
+                // Reset passes
+                passes = 0;
+            }
+        });
+    }
+    </script>
 </body>
+
 </html>
