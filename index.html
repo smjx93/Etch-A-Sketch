@@ -14,8 +14,17 @@
     <form>
         <label for="color-picker">Choose a color:</label>
         <input type="color" id="color-picker" name="color-picker">
+        <button id="rainbow-button">Rainbow 🔛</button>
+        <button id="eraser-button">Eraser</button>
     </form>
    
+
+   
+
+
+
+
+
     <script>
 
     // The script that handles the drawing, will update the background color to the chosen 
@@ -27,38 +36,86 @@
    // Get the container div
    let container = document.getElementById("grid-container");
 
-// Create a loop to create the grid squares
+// Outer loop creates perfect grid of 16x16 squares by running 16 times and 
+// for each iteration creates a new inner loop that also runs 16 times
 for (let i = 0; i < 16; i++) {
+// inner loop therefore runs 256 times (16 x 16) 
+// "j" is used as a variable to keep track of the inner loop
     for (let j = 0; j < 16; j++) {
-        // Create a new div
+        // Create a new div for each iteration (256 squares)
         let square = document.createElement("div");
-        // Add the "square" class to the div
+        // Add the "square" class to each div so we can style them
         square.classList.add("square");
-        // Append the square to the container
+        // Append the newly created 256 "div" elements as children of 
+        // the HTML element with ID of grid-container
         container.appendChild(square);
     }
 }
 
-var squares = document.getElementsByClassName("square");
+var isRainbow = false;
+// setting up the event listener for the rainbow event
+let rainbowButton = document.getElementById("rainbow-button");
+// function toggles isRainbow between T and F 
+
+rainbowButton.addEventListener("click", function() {
+    isRainbow = !isRainbow;
+    if (isRainbow) {
+        this.textContent = "Rainbow 🔛";
+    } else {
+        this.textContent = "Rainbow 🔚";
+    }
+
+});
+
+// updates the background color of each square to a random color if isRainbow is on
+    function randomColor() {
+    return Math.floor(Math.random() * 256);
+}
+
+// setting up the event listener for the eraser event
+let eraserButton = document.getElementById("eraser-button");
+// 
+eraserButton.addEventListener("click", function() {
+    for (let i = 0; i < square.length; i++) {
+        if (square[i].style.backgroundColor !== "white") 
+         
+        square[i].style.backgroundColor = "white";
+    }
+});
+
+// creating the grid of squares to draw on the screen
+var square = document.getElementsByClassName("square");
 var passes = 0;
-for (let i = 0; i < squares.length; i++) {
-    squares[i].addEventListener("mouseover", function (event) {
+for (let i = 0; i < square.length; i++) {
+    square[i].addEventListener("mouseover", function (event) {
         // Check if the left mouse button is clicked
         if (event.buttons === 1) {
             if (passes < 10) {
+                
+                if (isRainbow) {
+                        // update the background color to a random color
+                        this.style.backgroundColor = `rgb(${randomColor()}, ${randomColor()}, ${randomColor()})`;
+                    } else {
             // Add another 10% of the selected color
             this.style.backgroundColor = colorPicker.value;
             let currentOpacity = this.style.opacity;
             this.style.opacity = (currentOpacity ? parseFloat(currentOpacity) : 1) + 0.1;
             passes++;
-            } else {
+            }
+        } else {   
                 // Reset passes
                 passes = 0;
             }
         }
     });
 }
-    </script>
+ 
+ 
+ 
+ 
+ 
+ 
+</script>
 </body>
 
 </html>
